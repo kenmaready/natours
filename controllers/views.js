@@ -1,5 +1,7 @@
 const Tour = require('../models/Tour');
 const User = require('../models/User');
+const Booking = require('../models/Booking');
+const factory = require('./handlerFactory');
 const { ErrorRunner, catchWrapper } = require('../utils/errors');
 
 exports.getOverview = catchWrapper(async (req, res, next) => {
@@ -58,4 +60,16 @@ exports.updateMe = catchWrapper(async (req, res) => {
 
   res.status(200);
   res.render('account', { name: 'My Account', user: updatedUser });
+});
+
+exports.getMyTours = catchWrapper(async (req, res) => {
+  // get all bookings
+  const bookings = await Booking.find({ user: req.user._id });
+
+  // get array of tour names
+  const tourIds = bookings.map((el) => el.tour);
+  const tours = await Tour.find({ _id: { $in: tourIds } });
+
+  res.status(200);
+  res.render('overview', { name: 'My Tours', tours });
 });

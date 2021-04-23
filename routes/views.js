@@ -5,6 +5,7 @@ const {
   getLoginForm,
   getAccountPage,
   updateMe,
+  getMyTours,
 } = require('../controllers/views');
 const { login, logout } = require('../controllers/auth');
 const { checkToken, isLoggedIn } = require('../utils/auth');
@@ -18,5 +19,6 @@ router.post('/login', isLoggedIn, login);
 router.get('/logout', isLoggedIn, logout);
 router.get('/me', checkToken, getAccountPage);
 router.post('/update/me', checkToken, updateMe);
+router.get('/me/tours', checkToken, getMyTours);
 
 module.exports = router;
