@@ -32,14 +32,20 @@ exports.getCheckout = catchWrapper(async (req, res) => {
     client_reference_id: req.params.tourId,
     line_items: [
       {
-        name: `${tour.name}`,
-        description: tour.summary,
-        images: [
-          `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
-        ],
-        amount: tour.price * 100,
-        currency: 'usd',
         quantity: 1,
+        price_data: {
+          currency: 'usd',
+          unit_amount: tour.price * 100,
+          product_data: {
+            name: tour.name,
+            description: tour.summary,
+            images: [
+              `${req.protocol}://${req.get('host')}/img/tours/${
+                tour.imageCover
+              }`,
+            ],
+          },
+        },
       },
     ],
   });
@@ -69,7 +75,7 @@ exports.getCheckout = catchWrapper(async (req, res) => {
 const createBookingCheckout = async (session) => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email }))._id;
-  const price = session.line_items[0].amount / 100;
+  const price = session.amount_total / 100;
 
   console.log('{tour, user, price}:', { tour, user, price });
   await Booking.create({ tour, user, price });
