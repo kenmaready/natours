@@ -26,7 +26,7 @@ exports.getCheckout = catchWrapper(async (req, res) => {
     // )}/api/v1/bookings/success?tour=${req.params.tourId}&user=${
     //   req.user._id
     // }&price=${tour.price}`,
-    success_url: `${req.protocol}://${req.get('host')}/api/v1/bookings/success`,
+    success_url: `${req.protocol}://${req.get('host')}//me/tours?alert=booking`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,

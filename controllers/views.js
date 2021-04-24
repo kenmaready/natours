@@ -4,6 +4,14 @@ const Booking = require('../models/Booking');
 const factory = require('./handlerFactory');
 const { ErrorRunner, catchWrapper } = require('../utils/errors');
 
+exports.alert = (req, res, next) => {
+  const { alert } = req.query;
+  if (alert === 'booking')
+    res.locals.alert =
+      'Your booking was successful. Please check your email for a confirmation.';
+  next();
+};
+
 exports.getOverview = catchWrapper(async (req, res, next) => {
   const tours = await Tour.find();
 
