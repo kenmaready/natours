@@ -4,7 +4,7 @@ const Booking = require('../models/Booking');
 const factory = require('./handlerFactory');
 const { ErrorRunner, catchWrapper } = require('../utils/errors');
 
-exports.alert = (req, res, next) => {
+exports.alerts = (req, res, next) => {
   const { alert } = req.query;
   if (alert === 'booking')
     res.locals.alert =
