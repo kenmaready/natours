@@ -39,7 +39,6 @@ exports.getCheckout = catchWrapper(async (req, res) => {
       },
     ],
   });
-  console.log('session:', session);
 
   res.status(200);
   res.json({ success: true, session });

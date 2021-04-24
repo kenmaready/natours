@@ -42,7 +42,6 @@ exports.resizeUserPhoto = catchWrapper(async (req, res, next) => {
   // if this update does not include a photo, move on...
   if (!req.file) return next();
 
-  console.log('resizing photo....');
   // if this update includes a photo, then process:
   req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
   await sharp(req.file.buffer)
@@ -51,7 +50,6 @@ exports.resizeUserPhoto = catchWrapper(async (req, res, next) => {
     .jpeg({ quality: 90 })
     .toFile(`public/img/users/${req.file.filename}`);
 
-  console.log('successfully resized photo...');
   next();
 });
 
@@ -81,17 +79,13 @@ exports.updateMe = catchWrapper(async (req, res, next) => {
       )
     );
   }
-  console.log('updateMe() has been called....');
   const filteredBody = filterObject(req.body, 'name', 'email');
   if (req.file) filteredBody.photo = req.file.filename;
 
-  console.log('filteredBody:', filteredBody);
-  console.log('req.user._id:', req.user._id);
   const updatedUser = await User.findByIdAndUpdate(req.user._id, filteredBody, {
     new: true,
     runValidators: true,
   });
-  console.log('updatedUser:', updatedUser);
 
   res.status(200);
   res.json({ success: true, data: { user: updatedUser } });

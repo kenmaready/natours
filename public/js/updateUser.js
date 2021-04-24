@@ -3,7 +3,7 @@ import { showAlert } from './alerts';
 
 export const updateMe = async (form) => {
   return axios
-    .patch('http://localhost:3000/api/v1/users/update', form)
+    .patch('/api/v1/users/update', form)
     .then((result) => {
       if (result.data.success) {
         showAlert('success', 'Data updated successfully');
@@ -18,7 +18,7 @@ export const updateMyPassword = async (
   newPasswordConfirm
 ) => {
   return axios
-    .patch(`http://localhost:3000/api/v1/users/password`, {
+    .patch(`/api/v1/users/password`, {
       currentPassword,
       newPassword,
       newPasswordConfirm,

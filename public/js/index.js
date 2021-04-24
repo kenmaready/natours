@@ -51,7 +51,7 @@ if (updateUserForm)
     form.append('name', document.querySelector('#name').value);
     form.append('email', document.querySelector('#email').value);
     form.append('photo', document.getElementById('photo').files[0]);
-    console.log('form:', [...form.entries()]);
+
     await updateMe(form);
 
     document.querySelector('.btn--save-settings').textContent = 'Save Settings';

@@ -13,7 +13,6 @@ exports.getOverview = catchWrapper(async (req, res, next) => {
 
 exports.getTour = catchWrapper(async (req, res, next) => {
   const { slug } = req.params;
-  console.log('slug:', slug);
 
   const tour = await Tour.findOne({ slug }).populate({
     path: 'reviews',

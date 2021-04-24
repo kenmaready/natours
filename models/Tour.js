@@ -106,7 +106,6 @@ tourSchema.virtual('reviews', {
 // mongoose document middleware (pre and post hooks):
 tourSchema.pre('save', async function (next) {
   this.slug = slugify(this.name, { lower: true });
-  console.log('slug created:', this.slug);
 
   // const guidePromises = this.guides.map(async (id) => await User.findById(id));
   // this.guides = await Promise.all(guidePromises);
@@ -114,7 +113,6 @@ tourSchema.pre('save', async function (next) {
 });
 
 tourSchema.post('save', function (doc, next) {
-  console.log(`"${doc.name}" tour was just saved to the database...`);
   next();
 });
 
@@ -127,12 +125,12 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.post(/^find/, function (docs, next) {
-  console.log(
-    `This query took ${Date.now() - this.queryStartTime} milliseconds...`
-  );
-  next();
-});
+// tourSchema.post(/^find/, function (docs, next) {
+//   console.log(
+//     `This query took ${Date.now() - this.queryStartTime} milliseconds...`
+//   );
+//   next();
+// });
 
 // Mongoose aggregation middleware:
 // tourSchema.pre('aggregate', function (next) {

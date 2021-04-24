@@ -86,7 +86,6 @@ const sendEmail = async (options) => {
     text: options.message,
   };
 
-  console.log('about to send email...');
   // 3. send email
   await transporter.sendMail(mailOptions);
 };

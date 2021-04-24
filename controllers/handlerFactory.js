@@ -4,7 +4,6 @@ const APIFeatures = require('./APIFeatures');
 exports.createOne = (Model) =>
   catchWrapper(async (req, res, next) => {
     const docName = `${Model.collection.collectionName.slice(0, -1)}`;
-    console.log('Inside createOne ... creating a new', docName);
     const document = await Model.create(req.body);
 
     res.status(201);

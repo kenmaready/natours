@@ -30,8 +30,6 @@ exports.uploadTourImages = upload.fields([
 ]);
 
 exports.resizeTourImages = catchWrapper(async (req, res, next) => {
-  console.log('req.files:', req.files);
-
   if (!req.files.imageCover && !req.files.images) return next();
 
   // Cover image
@@ -133,7 +131,6 @@ exports.getMonthlyPlan = catchWrapper(async (req, res, next) => {
 exports.getToursWithin = catchWrapper(async (req, res, next) => {
   const { distance, latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
-  console.log(distance, lat, lng, unit);
 
   if (!distance || !lat || !lng || !unit)
     return next(

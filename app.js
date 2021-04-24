@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const viewRouter = require('./routes/views');
 const tourRouter = require('./routes/tours');
@@ -95,11 +96,12 @@ app.use(
     ],
   })
 );
+app.use(compression());
 
-app.use((req, res, next) => {
-  console.log('Received a cookie:', req.cookies);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Received a cookie:', req.cookies);
+//   next();
+// });
 
 // set up routes:
 app.post('/', (req, res) => {

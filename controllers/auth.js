@@ -20,7 +20,7 @@ exports.signup = catchWrapper(async (req, res, next) => {
   const newUser = await User.create(req.body);
   const url = `${req.protocol}://${req.get('host')}/me`;
   const email = new Email(newUser, url);
-  console.log('email:', email);
+
   await email.sendWelcome();
 
   const token = getToken(newUser._id);
@@ -31,7 +31,6 @@ exports.signup = catchWrapper(async (req, res, next) => {
 });
 
 exports.login = catchWrapper(async (req, res, next) => {
-  console.log('req.body:', req.body);
   const { email, password } = req.body;
 
   // 1. confirm request has both an email and password
@@ -87,7 +86,7 @@ exports.forgotPassword = catchWrapper(async (req, res, next) => {
     //   message,
     // });
     const email = new Email(user, resetURL);
-    console.log('email:', email);
+
     await email.sendPasswordReset();
 
     res.status(200);
@@ -126,7 +125,6 @@ exports.resetPassword = catchWrapper(async (req, res, next) => {
   const user = await User.findByResetToken(token).select(
     '+passwordResetExpires'
   );
-  console.log(user);
 
   if (!user)
     return next(

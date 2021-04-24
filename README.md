@@ -1,4 +1,4 @@
-# natours
+# Natours
 
 Natours app from Jonas Schmedtmann's "Node.js Bootcamp" course on Udemy
 
@@ -41,5 +41,5 @@ SENDGRID_USERNAME=
 SENDGRID_PASSWORD=
 STRIPE_SECRET_KEY=
 
-API_URL=http://localhost:3000/api/v1
+API_URL=http://localhost:3000/api/v1 (for example)
 ```

@@ -92,7 +92,6 @@ userSchema.methods = {
         this.passwordChangedAt.getTime() / 1000,
         10
       );
-      console.log(pwChangeTimestamp, jwtTimestamp);
       return pwChangeTimestamp > jwtTimestamp;
     }
 
@@ -105,7 +104,6 @@ userSchema.methods = {
     this.passwordResetToken = getHash(resetToken);
     this.passwordResetExpires = Date.now() + passwordResetExpiresIn * 60 * 1000;
     await this.save({ validateBeforeSave: false });
-    console.log('passwordResetExpires:', this.passwordResetExpires);
     return resetToken;
   },
   sanitize: function () {
