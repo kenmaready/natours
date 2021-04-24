@@ -15,6 +15,7 @@ const tourRouter = require('./routes/tours');
 const userRouter = require('./routes/users');
 const reviewRouter = require('./routes/reviews');
 const bookingRouter = require('./routes/bookings');
+const { webhookCheckout } = require('./controllers/bookings');
 const { ErrorRunner, errorHandler } = require('./utils/errors');
 
 // Global Middleware
@@ -84,6 +85,13 @@ const limiter = rateLimit({
     'Too many requests from this IP address, please try again in an hour.',
 }); // 100 requests / hour limit
 app.use('/api', limiter);
+
+app.post(
+  '/stripe/checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout
+);
+
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
