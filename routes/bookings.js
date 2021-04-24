@@ -21,6 +21,6 @@ router.get('/:id', getBooking);
 router.patch('/:id', updateBooking);
 router.delete('/:id', deleteBooking);
 router.get('/checkout/:tourId', getCheckout);
-router.get('/success', createBookingCheckout);
+// router.get('/success', createBookingCheckout);
 
 module.exports = router;
