@@ -92,3 +92,8 @@ exports.webhookCheckout = (req, res, next) => {
   res.status(200);
   res.json({ received: true });
 };
+
+exports.successPage = (req, res, next) => {
+  res.status(200);
+  res.render('bookingSuccess', { name: Success });
+};

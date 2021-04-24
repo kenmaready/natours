@@ -7,6 +7,7 @@ const {
   getBooking,
   updateBooking,
   deleteBooking,
+  successPage,
 } = require('../controllers/bookings');
 const { checkToken, restrictTo } = require('../utils/auth');
 
@@ -21,6 +22,6 @@ router.get('/:id', getBooking);
 router.patch('/:id', updateBooking);
 router.delete('/:id', deleteBooking);
 router.get('/checkout/:tourId', getCheckout);
-// router.get('/success', createBookingCheckout);
+router.get('/success', successPage);
 
 module.exports = router;
