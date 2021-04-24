@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "delete-data": "set NODE_ENV=LOADER&& node ./dev-data/import-dev-data.js -D",
     "import-data": "set NODE_ENV=LOADER&& node ./dev-data/import-dev-data.js -I",
-    "production": "set NODE_ENV=production&& nodemon server.js",
+    "production": "set NODE_ENV=production&& node server.js",
+    "start": "set NODE_ENV=production&& node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch:js": "parcel watch  --no-hmr ./public/js/index.js --out-dir ./public/js --out-file bundle.js --public-url ./",
     "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js --public-url ./"
