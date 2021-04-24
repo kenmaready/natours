@@ -21,3 +21,10 @@ process.on('unhandledRejection', (err) => {
   // shut down server before process.exit() to give it a chance to shut down gracefully
   server.close(() => process.exit(1));
 });
+
+process.on('SIGTERM', () => {
+  console.log(
+    'Termination signal (SIGTERM) received. Shutting down gracefully...'
+  );
+  server.close(() => console.log('Process terminated.'));
+});

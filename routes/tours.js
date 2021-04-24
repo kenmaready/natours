@@ -41,7 +41,7 @@ tourRouter.get('/:id', getTour);
 tourRouter.use(checkToken);
 tourRouter.use(restrictTo('admin', 'lead-guide'));
 
-tourRouter.post('/', createTour);
+tourRouter.post('/', uploadTourImages, resizeTourImages, createTour);
 tourRouter.patch('/:id', uploadTourImages, resizeTourImages, updateTour);
 tourRouter.delete('/:id', deleteTour);
 

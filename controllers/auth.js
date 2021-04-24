@@ -10,10 +10,12 @@ const getToken = (id) => {
   });
 };
 
-const cookieOptions = {
-  expires: new Date(Date.now() + cookieExpiresIn * 60 * 60 * 1000),
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production' ? true : null,
+const cookieOptions = (req) => {
+  return {
+    expires: new Date(Date.now() + cookieExpiresIn * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: req.secure || req.header['x-forwarded-proto'] === 'https',
+  };
 };
 
 exports.signup = catchWrapper(async (req, res, next) => {
@@ -24,7 +26,7 @@ exports.signup = catchWrapper(async (req, res, next) => {
   await email.sendWelcome();
 
   const token = getToken(newUser._id);
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('jwt', token, cookieOptions(req));
 
   res.status(201);
   res.json({ success: true, token, data: { user: newUser.sanitize() } });
@@ -50,7 +52,7 @@ exports.login = catchWrapper(async (req, res, next) => {
 
   // if passed all tests, generate token and send back to front end
   const token = getToken(user._id);
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('jwt', token, cookieOptions(req));
 
   res.status(200);
   res.json({
@@ -148,7 +150,7 @@ exports.resetPassword = catchWrapper(async (req, res, next) => {
   await user.save();
 
   const jwt = getToken(user._id);
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('jwt', token, cookieOptions(req));
 
   res.status(200);
   res.json({ success: true, token: jwt });
@@ -182,7 +184,7 @@ exports.updatePassword = catchWrapper(async (req, res, next) => {
   await user.save();
 
   const token = getToken(user._id);
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('jwt', token, cookieOptions(req));
 
   res.status(200);
   res.json({ success: true, token });
